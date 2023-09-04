@@ -7,12 +7,19 @@ import bcrypt from 'bcrypt';
 const CustomerController = () => {
     const registerCustomer = async (req: Request, res: Response) => {
         try {
-            const data = req.body;
-            if (!data) {
+            const { name, email, password } = req.body;
+            if (!name || !email || !password) {
                 return res.status(200).json("Enter valid details")
             }
-            const customer = await CustomerService.RegisterCustomer(data);
-            res.status(200).json({ message: "User successfully created", user: customer });
+            const hashedPassword = await bcrypt.hash(password, 10);
+            const customer = await prisma.customer.create({
+                data: {
+                    name,
+                    email,
+                    password: hashedPassword
+                }
+            });
+            res.status(200).json({ message: "User successfully created"});
         } catch (error) {
             console.log(error);
             res.status(400).json(error);
@@ -41,7 +48,7 @@ const CustomerController = () => {
             res.cookie("token", token, {
                 httpOnly: true
             })
-            res.status(200).json({ customer, token })
+            res.status(200).json("Login successful")
         } catch (error) {
             console.log(error);
             res.status(400).json(error);
