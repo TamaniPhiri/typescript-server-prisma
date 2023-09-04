@@ -28,7 +28,9 @@ const ProductService = () => {
     }
     return {
         GetAllProducts,
-        GetProductById
+        GetProductById,
+        CreateProduct,
+        
     }
 }
 
