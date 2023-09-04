@@ -1,5 +1,4 @@
-import { PrismaClient } from '@prisma/client'
-const prisma = new PrismaClient();
+import { prisma } from "../config/client";
 
 const ProductRepository=()=>{
     const getAllProducts=async()=>{
