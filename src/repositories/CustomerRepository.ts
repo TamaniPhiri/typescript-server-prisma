@@ -1,4 +1,6 @@
 import { prisma } from "../config/client";
+import jwt from 'jsonwebtoken';
+import { jwtSecret } from "../config/config";
 
 const CustomerRepository = () => {
     const registerCustomer = async (data: { name: string, email: string, password: string }) => {
@@ -29,11 +31,17 @@ const CustomerRepository = () => {
             }
         })
     }
+    const generateToken = (customerId: number) => {
+        const secretKey = jwtSecret;
+        const token = jwt.sign({ customerId }, secretKey, { expiresIn: '1h' });
+        return token;
+    };
     return {
         registerCustomer,
         loginCustomer,
         updateCustomer,
-        deleteCustomer
+        deleteCustomer,
+        generateToken
     }
 }
 
