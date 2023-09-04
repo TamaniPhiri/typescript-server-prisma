@@ -24,9 +24,9 @@ const ProductRepository = () => {
             data
         })
     }
-    const deleteProductById=async(id:number)=>{
+    const deleteProductById = async (id: number) => {
         return await prisma.products.delete({
-            where:{
+            where: {
                 id
             }
         })
@@ -39,5 +39,4 @@ const ProductRepository = () => {
         deleteProductById
     }
 }
-
-module.exports = ProductRepository();
+export default ProductRepository();
