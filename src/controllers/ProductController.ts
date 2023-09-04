@@ -22,7 +22,7 @@ const ProductController = () => {
             }
             const productId = parseInt(id)
             const product = await ProductService.GetProductById(productId);
-            if(!product){
+            if (!product) {
                 return res.status(400).json("Product not found")
             }
             res.status(200).json(product);
