@@ -75,6 +75,7 @@ const ProductController = () => {
         getProducts,
         createProduct,
         getProduct,
+        deleteProduct
     }
 }
 
