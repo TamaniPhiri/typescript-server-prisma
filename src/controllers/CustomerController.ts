@@ -12,14 +12,14 @@ const CustomerController = () => {
                 return res.status(200).json("Enter valid details")
             }
             const hashedPassword = await bcrypt.hash(password, 10);
-            const customer = await prisma.customer.create({
+            await prisma.customer.create({
                 data: {
                     name,
                     email,
                     password: hashedPassword
                 }
             });
-            res.status(200).json({ message: "User successfully created"});
+            res.status(200).json({ message: "User successfully created" });
         } catch (error) {
             console.log(error);
             res.status(400).json(error);
