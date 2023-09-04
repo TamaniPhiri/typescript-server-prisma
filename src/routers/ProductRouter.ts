@@ -5,10 +5,10 @@ import cookieJwtAuth from "../middleware/cookieJwtAuth";
 const ProductRouter=Router();
 
 ProductRouter.get('/',cookieJwtAuth,ProductController.getProducts);
-ProductRouter.get('/:id',ProductController.getProduct);
-ProductRouter.post('/',ProductController.createProduct);
-ProductRouter.put('/:id',ProductController.updateProduct);
-ProductRouter.delete('/:id',ProductController.deleteProduct);
+ProductRouter.get('/:id',cookieJwtAuth,ProductController.getProduct);
+ProductRouter.post('/',cookieJwtAuth,ProductController.createProduct);
+ProductRouter.put('/:id',cookieJwtAuth,ProductController.updateProduct);
+ProductRouter.delete('/:id',cookieJwtAuth,ProductController.deleteProduct);
 
 
 export default ProductRouter;
