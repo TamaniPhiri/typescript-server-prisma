@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import CustomerService from "../services/CustomerService";
+import CustomerRepository from "../repositories/CustomerRepository";
 
 const CustomerController = () => {
     const registerCustomer = async (req: Request, res: Response) => {
@@ -25,7 +26,14 @@ const CustomerController = () => {
             if (!customer) {
                 return res.status(400).json("User doesn't exist!");
             }
+            const token=CustomerRepository.generateToken(customer.id)
             res.status(200).json(customer);
+            return {
+                name: customer?.name,
+                email: customer?.email,
+                id: customer?.id,
+                token
+            };
         } catch (error) {
             console.log(error);
             res.status(400).json(error);

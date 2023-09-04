@@ -9,7 +9,7 @@ const CustomerRepository = () => {
         })
     }
     const loginCustomer = async (email: string, password: string) => {
-        return await prisma.customer.findFirst({
+        return await prisma.customer.findUnique({
             where: {
                 email,
                 password
@@ -33,7 +33,7 @@ const CustomerRepository = () => {
     }
     const generateToken = (customerId: number) => {
         const secretKey = jwtSecret;
-        const token = jwt.sign({ customerId }, secretKey, { expiresIn: '1h' });
+        const token = jwt.sign({ customerId }, secretKey, { expiresIn: '720h' });
         return token;
     };
     return {
