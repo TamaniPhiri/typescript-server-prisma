@@ -30,7 +30,8 @@ const ProductService = () => {
         GetAllProducts,
         GetProductById,
         CreateProduct,
-        UpdateProduct
+        UpdateProduct,
+        DeleteProduct
     }
 }
 
