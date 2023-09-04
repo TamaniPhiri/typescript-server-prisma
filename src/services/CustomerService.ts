@@ -1,6 +1,4 @@
-import { prisma } from "../config/client";
 import CustomerRepository from "../repositories/CustomerRepository";
-import { generateRefreshToken } from "../utils/jwtUtils";
 
 const CustomerService = () => {
     const RegisterCustomer = async (data: { name: string, email: string, password: string }) => {
@@ -25,21 +23,6 @@ const CustomerService = () => {
     }
     const DeleteCustomer = async (id: number) => {
         await CustomerRepository.deleteCustomer(id);
-    }
-    generateRefreshToken: async (customerId: number) => {
-        try {
-            const refreshToken = generateRefreshToken({ customerId });
-            await prisma.refreshtoken.create({
-                data: {
-                    customerId,
-                    token: refreshToken
-                }
-            })
-            return refreshToken
-        } catch (error) {
-            throw new Error('Error generating refresh token');
-            console.log(error);
-        }
     }
     return {
         RegisterCustomer,
