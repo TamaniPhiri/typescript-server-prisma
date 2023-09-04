@@ -6,7 +6,7 @@ const CustomerRepository = () => {
             data
         })
     }
-    const loginCustomer = async (email: string,password:string) => {
+    const loginCustomer = async (email: string, password: string) => {
         return await prisma.customer.findFirst({
             where: {
                 email,
@@ -14,9 +14,26 @@ const CustomerRepository = () => {
             }
         })
     }
+    const updateCustomer = async (id: number, data: { name: string, email: string, password: string }) => {
+        return await prisma.customer.update({
+            where: {
+                id
+            },
+            data
+        })
+    }
+    const deleteCustomer = async (id: number) => {
+        return await prisma.customer.delete({
+            where: {
+                id
+            }
+        })
+    }
     return {
         registerCustomer,
-        loginCustomer
+        loginCustomer,
+        updateCustomer,
+        deleteCustomer
     }
 }
 
