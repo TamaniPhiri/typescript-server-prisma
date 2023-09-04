@@ -11,9 +11,15 @@ const ProductRepository = () => {
             }
         })
     }
+    const createProduct = async (data: { sellerId: number, title: string, description: string, type: string }) => {
+        return await prisma.products.create({
+            data
+        })
+    }
     return {
         getAllProducts,
-        getProductById
+        getProductById,
+        createProduct
     }
 }
 
