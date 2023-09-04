@@ -1,14 +1,16 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-generator client {
-  provider = "prisma-client-js"
-}
-
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+
+generator client {
+  provider = "prisma-client-js"
+}
+
 
 model Customer {
   id       Int    @id @default(autoincrement())
@@ -26,10 +28,11 @@ model Seller {
 }
 
 model Products {
-  id       Int     @id @default(autoincrement())
-  seller   Seller? @relation(fields: [sellerId], references: [id])
-  sellerId Int
-  title String
+  id          Int     @id @default(autoincrement())
+  seller      Seller? @relation(fields: [sellerId], references: [id])
+  sellerId    Int
+  title       String
   description String
-  type String
+  type        String
 }
+
