@@ -1,6 +1,6 @@
 import bodyParser from "body-parser";
 import express from "express";
-import ProductRouter from "./src/routers/ProductRouter";
+import ProductRouter from "./src/repositories/ProductRouter";
 import CustomerRouter from "./src/routers/CustomerRouter";
 import cookieParser from 'cookie-parser'
 import cors from 'cors'

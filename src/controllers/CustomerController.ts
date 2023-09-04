@@ -64,7 +64,15 @@ const CustomerController = () => {
             res.status(400).json(error);
         }
     };
-
+    const updateCustomer=async(req: Request, res: Response)=>{
+        try {
+            const {id}=req.params;
+            const data=req.body;
+            const customer=await CustomerService.UpdateCustomer(id,)
+        } catch (error) {
+            
+        }
+    }
     return {
         registerCustomer,
         loginCustomer
