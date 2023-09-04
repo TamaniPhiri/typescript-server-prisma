@@ -3,19 +3,6 @@ import jwt from 'jsonwebtoken';
 import { jwtSecret } from "../config/config";
 
 const CustomerRepository = () => {
-    const registerCustomer = async (data: { name: string, email: string, password: string }) => {
-        return await prisma.customer.create({
-            data
-        })
-    }
-    const loginCustomer = async (email: string, password: string) => {
-        return await prisma.customer.findUnique({
-            where: {
-                email,
-                password
-            }
-        })
-    }
     const updateCustomer = async (id: number, data: { name: string, email: string, password: string }) => {
         return await prisma.customer.update({
             where: {
@@ -31,17 +18,9 @@ const CustomerRepository = () => {
             }
         })
     }
-    const generateToken = (customerId: number) => {
-        const secretKey = jwtSecret;
-        const token = jwt.sign({ customerId }, secretKey, { expiresIn: '720h' });
-        return token;
-    };
     return {
-        registerCustomer,
-        loginCustomer,
         updateCustomer,
         deleteCustomer,
-        generateToken
     }
 }
 
