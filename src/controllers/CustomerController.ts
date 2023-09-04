@@ -1,6 +1,10 @@
 import { Request, Response } from "express";
 import CustomerService from "../services/CustomerService";
 import CustomerRepository from "../repositories/CustomerRepository";
+import jwt from "jsonwebtoken";
+import { jwtSecret } from "../config/config";
+import { prisma } from "../config/client";
+import { log } from "console";
 
 const CustomerController = () => {
     const registerCustomer = async (req: Request, res: Response) => {
@@ -22,18 +26,22 @@ const CustomerController = () => {
             if (!email || !password) {
                 return res.status(400).json("Enter valid credentials");
             }
-            const customer = await CustomerService.LoginCustomer(email, password);
+            const customer = await prisma.customer.findUnique({
+                where: {
+                    email,
+                    password
+                }
+            });
             if (!customer) {
                 return res.status(400).json("User doesn't exist!");
             }
-            const token=CustomerRepository.generateToken(customer.id)
-            res.status(200).json(customer);
-            return {
-                name: customer?.name,
-                email: customer?.email,
-                id: customer?.id,
-                token
-            };
+            const token = jwt.sign(customer, jwtSecret, { expiresIn: "72h" })
+            res.status(200).json(customer)
+            res.cookie("token", token, {
+                httpOnly: true
+            })
+            console.log(token);
+            
         } catch (error) {
             console.log(error);
             res.status(400).json(error);

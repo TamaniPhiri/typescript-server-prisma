@@ -1,9 +1,10 @@
 import { Router } from "express";
 import ProductController from "../controllers/ProductController";
+import cookieJwtAuth from "../middleware/cookieJwtAuth";
 
 const ProductRouter=Router();
 
-ProductRouter.get('/',ProductController.getProducts);
+ProductRouter.get('/',cookieJwtAuth,ProductController.getProducts);
 ProductRouter.get('/:id',ProductController.getProduct);
 ProductRouter.post('/',ProductController.createProduct);
 ProductRouter.put('/:id',ProductController.updateProduct);
