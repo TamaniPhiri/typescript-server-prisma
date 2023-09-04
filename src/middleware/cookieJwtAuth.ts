@@ -14,7 +14,7 @@ declare global {
 const cookieJwtAuth = (req: Request, res: Response, next: NextFunction) => {
     const token = req.cookies.token;
     try {
-        const user = jwt.verify(token, jwtSecret);
+        const user = jwt.verify(token, "a765s76g!@#$%7sa8f7sct");
         req.user = user;
         next()
     } catch (error) {
