@@ -18,7 +18,9 @@ const CustomerService = () => {
     }
     return {
         RegisterCustomer,
-        LoginCustomer
+        LoginCustomer,
+        UpdateCustomer,
+        DeleteCustomer
     }
 }
 
