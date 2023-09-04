@@ -13,6 +13,9 @@ const CustomerService = () => {
         const customer=await CustomerRepository.updateCustomer(id,data);
         return customer;
     }
+    const DeleteCustomer=async(id:number)=>{
+        await CustomerRepository.deleteCustomer(id);
+    }
     return {
         RegisterCustomer,
         LoginCustomer
