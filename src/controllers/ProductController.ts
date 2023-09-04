@@ -22,6 +22,9 @@ const ProductController = () => {
             }
             const productId = parseInt(id)
             const product = await ProductService.GetProductById(productId);
+            if(!product){
+                return res.status(400).json("Product not found")
+            }
             res.status(200).json(product);
         } catch (error) {
             res.status(400).json(error);
@@ -67,8 +70,10 @@ const ProductController = () => {
             }
             const productId = parseInt(id)
             await ProductService.DeleteProduct(productId)
+            res.status(200).json("Product deleted successfully");
         } catch (error) {
-
+            res.status(400).json(error);
+            console.log(error);
         }
     }
     return {
