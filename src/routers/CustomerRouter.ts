@@ -4,6 +4,6 @@ import { Router } from "express";
 const CustomerRouter=Router();
 CustomerRouter.post('/login',CustomerController.loginCustomer);
 CustomerRouter.post('/register',CustomerController.registerCustomer);
-CustomerRouter.put('/delete',CustomerController.updateCustomer);
+CustomerRouter.put('/update/:id',CustomerController.updateCustomer);
 CustomerRouter.delete('/delete/:id',CustomerController.deleteCustomerById);
 export default CustomerRouter;
