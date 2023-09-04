@@ -32,7 +32,8 @@ const CustomerController = () => {
         }
     }
     return {
-        registerCustomer
+        registerCustomer,
+        loginCustomer
     }
 }
 
