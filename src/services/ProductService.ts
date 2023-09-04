@@ -35,4 +35,4 @@ const ProductService = () => {
     }
 }
 
-export default ProductService;
+export default ProductService();
