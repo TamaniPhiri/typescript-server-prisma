@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import CustomerService from "../services/CustomerService";
 import jwt from "jsonwebtoken";
 import { prisma } from "../config/client";
+import bcrypt from 'bcrypt';
 
 const CustomerController = () => {
     const registerCustomer = async (req: Request, res: Response) => {
@@ -32,11 +33,15 @@ const CustomerController = () => {
             if (!customer) {
                 return res.status(400).json("User doesn't exist!");
             }
+            const passwordMatch = await bcrypt.compare(password, customer.password);
+            if (!passwordMatch) {
+                return null;
+            }
             const token = jwt.sign(customer, "a765s76g!@#$%7sa8f7sct", { expiresIn: "72h" })
             res.cookie("token", token, {
                 httpOnly: true
             })
-            res.status(200).json({customer,token})
+            res.status(200).json({ customer, token })
         } catch (error) {
             console.log(error);
             res.status(400).json(error);
