@@ -24,11 +24,19 @@ const ProductRepository = () => {
             data
         })
     }
+    const deleteProductById=async(id:number)=>{
+        return await prisma.products.delete({
+            where:{
+                id
+            }
+        })
+    }
     return {
         getAllProducts,
         getProductById,
         createProduct,
-        updateProductById
+        updateProductById,
+        deleteProductById
     }
 }
 
