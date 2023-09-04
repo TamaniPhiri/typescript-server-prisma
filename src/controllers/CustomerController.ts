@@ -94,6 +94,7 @@ const CustomerController = () => {
                     id: customerId
                 }
             })
+            return res.status(200).json("User deleted successfully")
         } catch (error) {
             console.log(error);
             res.status(400).json(error);
