@@ -70,9 +70,9 @@ const CustomerController = () => {
             if (!id) {
                 return res.status(400).json("Enter valid ID!");
             }
-            const customerId=parseInt(id)
+            const customerId = parseInt(id)
             const data = req.body;
-            if(!data){
+            if (!data) {
                 return res.status(400).json("Enter valid data")
             }
             await CustomerService.UpdateCustomer(customerId, data);
@@ -82,10 +82,28 @@ const CustomerController = () => {
             res.status(400).json(error);
         }
     }
+    const deleteCustomerById = async (req: Request, res: Response) => {
+        try {
+            const { id } = req.params;
+            if (!id) {
+                return res.status(400).json("Enter valid ID!");
+            }
+            const customerId = parseInt(id)
+            await prisma.customer.delete({
+                where: {
+                    id: customerId
+                }
+            })
+        } catch (error) {
+            console.log(error);
+            res.status(400).json(error);
+        }
+    }
     return {
         registerCustomer,
         loginCustomer,
-        updateCustomer
+        updateCustomer,
+        deleteCustomerById
     }
 }
 
