@@ -1,6 +1,4 @@
 import { prisma } from "../config/client";
-import jwt from 'jsonwebtoken';
-import { jwtSecret } from "../config/config";
 
 const CustomerRepository = () => {
     const updateCustomer = async (id: number, data: { name: string, email: string, password: string }) => {

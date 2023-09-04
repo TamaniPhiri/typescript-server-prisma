@@ -11,7 +11,7 @@ const CustomerController = () => {
             if (!name || !email || !password) {
                 return res.status(200).json("Enter valid details")
             }
-            const hashedPassword = await bcrypt.hash(password, 10);
+            const hashedPassword = await bcrypt.hashSync(password, 10);
             await prisma.customer.create({
                 data: {
                     name,
@@ -31,29 +31,40 @@ const CustomerController = () => {
             if (!email || !password) {
                 return res.status(400).json("Enter valid credentials");
             }
+
+            // Find the customer by email
             const customer = await prisma.customer.findUnique({
                 where: {
                     email,
-                    password
-                }
+                },
             });
+
+            // Check if the customer exists
             if (!customer) {
                 return res.status(400).json("User doesn't exist!");
             }
+
+            // Compare the provided password with the hashed password
             const passwordMatch = await bcrypt.compare(password, customer.password);
+
+            // Check if the password is incorrect
             if (!passwordMatch) {
-                return null;
+                return res.status(400).json("Password incorrect");
             }
-            const token = jwt.sign(customer, "a765s76g!@#$%7sa8f7sct", { expiresIn: "72h" })
+
+            // If everything is correct, generate a token and set a cookie
+            const token = jwt.sign(customer, "a765s76g!@#$%7sa8f7sct", { expiresIn: "72h" });
             res.cookie("token", token, {
-                httpOnly: true
-            })
-            res.status(200).json("Login successful")
+                httpOnly: true,
+            });
+
+            res.status(200).json("Login successful");
         } catch (error) {
             console.log(error);
             res.status(400).json(error);
         }
-    }
+    };
+
     return {
         registerCustomer,
         loginCustomer

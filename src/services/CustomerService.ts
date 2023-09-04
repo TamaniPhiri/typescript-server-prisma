@@ -1,5 +1,4 @@
 import CustomerRepository from "../repositories/CustomerRepository";
-import bcrypt from 'bcrypt';
 
 const CustomerService = () => {
 
