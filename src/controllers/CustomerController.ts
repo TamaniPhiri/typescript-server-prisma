@@ -64,13 +64,22 @@ const CustomerController = () => {
             res.status(400).json(error);
         }
     };
-    const updateCustomer=async(req: Request, res: Response)=>{
+    const updateCustomer = async (req: Request, res: Response) => {
         try {
-            const {id}=req.params;
-            const data=req.body;
-            const customer=await CustomerService.UpdateCustomer(id,)
+            const { id } = req.params;
+            if (!id) {
+                return res.status(400).json("Enter valid ID!");
+            }
+            const customerId=parseInt(id)
+            const data = req.body;
+            if(!data){
+                return res.status(400).json("Enter valid data")
+            }
+            await CustomerService.UpdateCustomer(customerId, data);
+            res.status(200).json("Update successful");
         } catch (error) {
-            
+            console.log(error);
+            res.status(400).json(error);
         }
     }
     return {
