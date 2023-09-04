@@ -16,10 +16,19 @@ const ProductRepository = () => {
             data
         })
     }
+    const updateProductById = async (id: number, data: { sellerId: number, title: string, description: string, type: string }) => {
+        return await prisma.products.update({
+            where: {
+                id
+            },
+            data
+        })
+    }
     return {
         getAllProducts,
         getProductById,
-        createProduct
+        createProduct,
+        updateProductById
     }
 }
 
