@@ -5,5 +5,5 @@ const CustomerRouter=Router();
 CustomerRouter.post('/login',CustomerController.loginCustomer);
 CustomerRouter.post('/register',CustomerController.registerCustomer);
 CustomerRouter.put('/delete',CustomerController.updateCustomer);
-CustomerRouter.delete('delete',CustomerController.deleteCustomerById);
+CustomerRouter.delete('/delete',CustomerController.deleteCustomerById);
 export default CustomerRouter;
