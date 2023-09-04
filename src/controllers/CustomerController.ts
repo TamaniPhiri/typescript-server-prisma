@@ -9,7 +9,7 @@ const CustomerController = () => {
         try {
             const { name, email, password } = req.body;
             if (!name || !email || !password) {
-                return res.status(200).json("Enter valid details")
+                return res.status(400).json("Enter valid details")
             }
             const hashedPassword = await bcrypt.hashSync(password, 10);
             await prisma.customer.create({
