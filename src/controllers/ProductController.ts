@@ -39,7 +39,7 @@ const ProductController = () => {
     return {
         getProducts,
         createProduct,
-
+        getProduct,
     }
 }
 
