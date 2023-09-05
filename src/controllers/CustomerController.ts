@@ -64,6 +64,13 @@ const CustomerController = () => {
             res.status(400).json(error);
         }
     };
+    const logoutCustomer = async (req: Request, res: Response) => {
+        const token = req.cookies.token
+        if (!token) {
+            return res.status(400).json("No token found")
+        }
+        res.status(200).clearCookie("token");
+    }
     const updateCustomer = async (req: Request, res: Response) => {
         try {
             const { id } = req.params;
@@ -103,6 +110,7 @@ const CustomerController = () => {
     return {
         registerCustomer,
         loginCustomer,
+        logoutCustomer,
         updateCustomer,
         deleteCustomerById
     }

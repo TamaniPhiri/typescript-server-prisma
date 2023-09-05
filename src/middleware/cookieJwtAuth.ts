@@ -13,6 +13,9 @@ declare global {
 
 const cookieJwtAuth = (req: Request, res: Response, next: NextFunction) => {
     const token = req.cookies.token;
+    if(!token){
+        return res.status(400).json("No token found")
+    }
     try {
         const user = jwt.verify(token, "a765s76g!@#$%7sa8f7sct");
         req.user = user;
