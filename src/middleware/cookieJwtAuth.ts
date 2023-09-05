@@ -13,7 +13,7 @@ declare global {
 
 const cookieJwtAuth = (req: Request, res: Response, next: NextFunction) => {
     const token = req.cookies.token;
-    if(!token){
+    if (!token) {
         return res.status(400).json("No token found")
     }
     try {
