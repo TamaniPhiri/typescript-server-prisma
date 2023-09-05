@@ -65,11 +65,16 @@ const CustomerController = () => {
         }
     };
     const logoutCustomer = async (req: Request, res: Response) => {
-        const token = req.cookies.token
-        if (!token) {
-            return res.status(400).json("No token found")
+        try {
+            const token = req.cookies.token
+            if (!token) {
+                return res.status(400).json("No token found")
+            }
+            res.status(200).clearCookie("token").json("Logout successful");
+        } catch (error) {
+            console.log(error);
+            res.status(400).json(error);
         }
-        res.status(200).clearCookie("token");
     }
     const updateCustomer = async (req: Request, res: Response) => {
         try {
